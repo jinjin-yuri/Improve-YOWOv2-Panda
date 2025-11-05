@@ -1,0 +1,5 @@
+{
+    "debug.console.acceptSuggestionOnEnter": "on",
+    "debug.allowBreakpointsEverywhere": true,
+    "debug.autoExpandLazyVariables": true
+}

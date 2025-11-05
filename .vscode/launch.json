@@ -1,0 +1,31 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "python": "/home/dyp/anaconda3/envs/yowo/bin/python3.7", //这里写虚拟环境
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            // "program": "${file}", //会运行当前文件
+            "program": "train.py", //会运行指定文件
+            "console": "integratedTerminal",
+            "env": {"CUDA_VISIBLE_DEVICES":"7"}, //指定某个显卡
+            // "args": ["-d=ucf24","-v=yowo_v2_large","--root=/datadisk/lx","--num_workers=4",
+            //         "--eval_epoch=1","--max_epoch=7","-lr=0.0001","-ldr=0.5","-bs=8","-accu=16",
+            //         "-K=16","-ct=0.005"], // train_ucf.sh 命令行参数
+            // "args": ["-d=ava_v2.2","-v=yowo_v2_large","--root=/datadisk/lx/PBA/","--num_workers=4",
+            //         "--eval_epoch=1","--max_epoch=9","-lr=0.0001","-ldr=0.5","-bs=8","-accu=16",
+            //         "-K=16"], // train_ava.sh 命令行参数
+            // "args": ["-d=ava_v2.2","-v=yowo_v2_large","--root=/datadisk/lx/PBA/","-size=224",
+            //         "--weight=/datadisk/lx/results/yowov2/pba_weights/ava_v2.2/yowo_v2_large/yowo_v2_large_epoch_1.pth",
+            //         "-bs=16"], // eval_ava.sh 命令行参数   
+            "args": ["-d=jhmdb21","-v=yowo_v2_large","--root=/datadisk/lx","--num_workers=4",
+                    "--eval_epoch=1","--max_epoch=7","-lr=0.0001","-ldr=0.5","-bs=1","-accu=16",
+                    "-K=16","-ct=0.005"], // train_ucf.sh 命令行参数    
+            "justMyCode": true
+        }
+    ]
+}

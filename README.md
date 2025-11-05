@@ -1,209 +1,174 @@
-# YOWOv2: A Stronger yet Efficient Multi-level Detection Framework for Real-time Spatio-temporal Action Detection
-English | [简体中文](https://github.com/yjh0410/YOWOv2/blob/master/README_CN.md)
+# Giant Panda Behavior Recognition in Captivity Based on YOWOv2-Tiny
 
-## Overview of YOWOv2
-![image](./img_files/yowov2.png)
+English
 
+## Overview of Giant Panda Behavior Recognition
+![image](./img_files/yowo.png)
+
+## Abstract
+The behavior of captive giant pandas is a crucial indicator of their physical and mental health. Understanding their behavior helps improve animal welfare and refine management practices. This paper categorizes giant panda behaviors into three main types: actions, activities, and pregnancy-related behaviors. We created the Panda Behavior Analysis (PBA) dataset by clipping surveillance videos. We optimized the YOWOv2-Tiny model for panda behavior characteristics and designed a frequency domain attention module called MLSA (Multi-Head Local Spectrum Attention), enabling the model to capture information from temporal, spatial, and frequency domains. Experimental results show that the proposed method achieves a mean Average Precision (mAP) of 73.94% on the PBA dataset, outperforming various baseline methods.
 
 ## Requirements
 - We recommend you to use Anaconda to create a conda environment:
 ```Shell
-conda create -n yowo python=3.6
+conda create -n panda_behavior python=3.8
 ```
 
 - Then, activate the environment:
 ```Shell
-conda activate yowo
+conda activate panda_behavior
 ```
 
 - Requirements:
 ```Shell
-pip install -r requirements.txt 
+pip install -r requirements.txt
 ```
 
 ## Visualization
 
-![image](./img_files/ucf24_v_Basketball_g07_c04.gif)
-![image](./img_files/ucf24_v_Biking_g01_c01.gif)
-![image](./img_files/ucf24_v_Fencing_g01_c06.gif)
-
-![image](./img_files/ucf24_v_HorseRiding_g01_c03.gif)
-![image](./img_files/ucf24_v_IceDancing_g02_c05.gif)
-![image](./img_files/ucf24_v_SalsaSpin_g03_c01.gif)
+![image](./img_files/11.png)
+![image](./img_files/image4.png)
 
 # Dataset
 
-## UCF101-24:
-You can download **UCF24** from the following links:
+## Panda Behavior Analysis (PBA) Dataset:
+The PBA dataset contains 2369 video clips of 30 seconds each, covering 24 behavior categories across three main types:
 
-* Google drive
+### Actions (10 categories):
+- Continued Lying, Continued Standing, Continued Sitting, Continued Prone
+- Continued bipedal standing, Running, Walking, Climbing, Rubbing, Rolling
 
-Link: https://drive.google.com/file/d/1Dwh90pRi7uGkH5qLRjQIFiEmMJrAog5J/view?usp=sharing
+### Activities (9 categories):
+- Drinking, Eating, Locomotion, Resting, Exploring
+- Playing, Marking, Excretion, Grooming
 
-* BaiduYun Disk
-
-Link: https://pan.baidu.com/s/11GZvbV0oAzBhNDVKXsVGKg
-
-Password: hmu6 
-
-## AVA
-You can use instructions from [here](https://github.com/yjh0410/AVA_Dataset) to prepare **AVA** dataset.
+### Pregnancy-related behaviors (5 categories):
+- Pregnancy Grasping, Lick the chest and abdomen, Lick the vulva, Curl Up, Rub Yin
 
 # Experiment
-* UCF101-24
 
-|      Model     |  Clip  | GFLOPs |  Params | F-mAP | V-mAP |   FPS   |    Weight    |
-|----------------|--------|--------|---------|-------|-------|---------|--------------|
-|  YOWOv2-Nano   |   16   |  1.3   | 3.5 M   | 78.8  | 48.0  |   42    | [ckpt](https://github.com/yjh0410/YOWOv2/releases/download/yowo_v2_weight/yowo_v2_nano_ucf24.pth) |
-|  YOWOv2-Tiny   |   16   |  2.9   | 10.9 M  | 80.5  | 51.3  |   50    | [ckpt](https://github.com/yjh0410/YOWOv2/releases/download/yowo_v2_weight/yowo_v2_tiny_ucf24.pth) |
-|  YOWOv2-Medium |   16   |  12.0  | 52.0 M  | 83.1  | 50.7  |   42    | [ckpt](https://github.com/yjh0410/YOWOv2/releases/download/yowo_v2_weight/yowo_v2_medium_ucf24.pth) |
-|  YOWOv2-Large  |   16   |  53.6 | 109.7 M | 85.2  | 52.0  |   30    | [ckpt](https://github.com/yjh0410/YOWOv2/releases/download/yowo_v2_weight/yowo_v2_large_ucf24.pth) |
-|  YOWOv2-Nano   |   32   |  2.0   | 3.5 M   | 79.4  | 49.0  |   42    | [ckpt](https://github.com/yjh0410/YOWOv2/releases/download/yowo_v2_weight/yowo_v2_nano_ucf24_k32.pth) |
-|  YOWOv2-Tiny   |   32   |  4.5   | 10.9 M  | 83.0  | 51.2  |   50    | [ckpt](https://github.com/yjh0410/YOWOv2/releases/download/yowo_v2_weight/yowo_v2_tiny_ucf24_k32.pth) |
-|  YOWOv2-Medium |   32   |  12.7  | 52.0 M  | 83.7  | 52.5  |   40    | [ckpt](https://github.com/yjh0410/YOWOv2/releases/download/yowo_v2_weight/yowo_v2_medium_ucf24_k32.pth) |
-|  YOWOv2-Large  |   32   |  91.9  | 109.7 M | 87.0  | 52.8  |   22    | [ckpt](https://github.com/yjh0410/YOWOv2/releases/download/yowo_v2_weight/yowo_v2_large_ucf24_k32.pth) |
+## PBA Dataset Performance
 
-*All FLOPs are measured with a video clip with 16 or 32 frames (224×224). The FPS is measured with batch size 1 on a 3090 GPU from the model inference to the NMS operation.*
+| Model | FLOPs | Params | PBA F-mAP | Improvement |
+|-------|-------|---------|-----------|-------------|
+| YOWOv2-Tiny (Baseline) | 2.9G | 10.9M | 67.13% | - |
+| YOWOv2-Medium | 12.0G | 52.0M | 69.95% | +2.82% |
+| YOWOv2-Large | 53.6G | 109.7M | 72.68% | +5.55% |
+| **Our Improved YOWOv2-Tiny** | **3.35G** | **14.9M** | **73.94%** | **+6.81%** |
 
-**Qualitative results on UCF101-24**
-![image](./img_files/vis_ucf24.png)
+## Public Datasets Performance
 
+| Model | UCF101-24 F-mAP | UCF101-24 V-mAP | JHMDB21 F-mAP | JHMDB21 V-mAP |
+|-------|-----------------|-----------------|---------------|---------------|
+| YOWOv2-Tiny | 80.5% | 49.91% | 60.12% | 69.22% |
+| **Our Method** | **81.74%** | **50.70%** | **60.98%** | **69.81%** |
 
-* AVA v2.2
+**category results on PBA dataset**
+![image](./img_files/cate.png)
 
-|     Model      |    Clip    |    mAP    |   FPS   |    weight    |
-|----------------|------------|-----------|---------|--------------|
-|  YOWOv2-Nano   |     16     |   12.6    |   40    | [ckpt](https://github.com/yjh0410/YOWOv2/releases/download/yowo_v2_weight/yowo_v2_nano_ava.pth) |
-|  YOWOv2-Tiny   |     16     |   14.9    |   49    | [ckpt](https://github.com/yjh0410/YOWOv2/releases/download/yowo_v2_weight/yowo_v2_tiny_ava.pth) |
-|  YOWOv2-Medium |     16     |   18.4    |   41    | [ckpt](https://github.com/yjh0410/YOWOv2/releases/download/yowo_v2_weight/yowo_v2_medium_ava.pth) |
-|  YOWOv2-Large  |     16     |   20.2    |   29    | [ckpt](https://github.com/yjh0410/YOWOv2/releases/download/yowo_v2_weight/yowo_v2_large_ava.pth) |
-|  YOWOv2-Nano   |     32     |   12.7    |   40    | [ckpt](https://github.com/yjh0410/YOWOv2/releases/download/yowo_v2_weight/yowo_v2_nano_ucf24_k32.pth) |
-|  YOWOv2-Tiny   |     32     |   15.6    |   49    | [ckpt](https://github.com/yjh0410/YOWOv2/releases/download/yowo_v2_weight/yowo_v2_tiny_ava_k32.pth) |
-|  YOWOv2-Medium |     32     |   18.4    |   40    | [ckpt](https://github.com/yjh0410/YOWOv2/releases/download/yowo_v2_weight/yowo_v2_medium_ava_k32.pth) |
-|  YOWOv2-Large  |     32     |   21.7    |   22    | [ckpt](https://github.com/yjh0410/YOWOv2/releases/download/yowo_v2_weight/yowo_v2_large_ava_k32.pth) |
+## Method Improvements
 
-**Qualitative results on AVA**
-![image](./img_files/vis_ava.png)
+### 1. Enhanced 2D CNN Architecture
+- Introduced C3k2 structure with parameter-adaptive characteristics
+- Integrated C2PSA module combining multi-head attention and feed-forward network
+- Added SPPF multi-scale feature processing module
+- Embedded DCAFE attention mechanism for better spatial relationship modeling
 
+### 2. Improved 3D CNN with MLSA Attention
+- Combined ShuffleNetV2 with MLSA (Multi-Head Local Spectrum Attention) module
+- Enables capture of temporal, spatial, and frequency domain information
+- Dynamically learns weight distribution of different frequency components
+- Suppresses high-frequency noise while highlighting behavior-related frequency bands
 
-## Train YOWOv2
-* UCF101-24
+### 3. Enhanced Decoupled Fusion Head
+- Replaced original attention mechanism with SCSA (Spatial-Channel Synergistic Attention)
+- Strengthens spatial-channel feature interaction capability
+- Improves utilization of extracted feature information
 
-For example:
+## Train Panda Behavior Recognition Model
 
 ```Shell
-python train.py --cuda -d ucf24 --root path/to/dataset -v yowo_v2_nano --num_workers 4 --eval_epoch 1 --max_epoch 8 --lr_epoch 2 3 4 5 -lr 0.0001 -ldr 0.5 -bs 8 -accu 16 -K 16
+python train.py --cuda -d pba --root path/to/pba_dataset -v yowo_v2_tiny_improved --num_workers 4 --eval_epoch 1 --max_epoch 30 --lr_epoch 3 4 5 6 -lr 0.0001 -ldr 0.5 -bs 8 -accu 16 -K 16
 ```
 
-or you can just run the script:
+or you can use the provided script:
 
 ```Shell
-sh train_ucf.sh
+sh train_pba.sh
 ```
 
-* AVA
+For distributed training with multiple GPUs:
+
 ```Shell
-python train.py --cuda -d ava_v2.2 --root path/to/dataset -v yowo_v2_nano --num_workers 4 --eval_epoch 1 --max_epoch 10 --lr_epoch 3 4 5 6 -lr 0.0001 -ldr 0.5 -bs 8 -accu 16 -K 16 --eval
+python train.py --cuda -dist -d pba --root path/to/pba_dataset -v yowo_v2_tiny_improved --num_workers 4 --eval_epoch 1 --max_epoch 30 --lr_epoch 3 4 5 6 -lr 0.0001 -ldr 0.5 -bs 8 -accu 16 -K 16
 ```
 
-or you can just run the script:
+## Test Panda Behavior Recognition
 
 ```Shell
-sh train_ava.sh
+python test.py --cuda -d pba -v yowo_v2_tiny_improved --weight path/to/weight -size 224 --show
 ```
 
-If you have multiple GPUs, you can launch DDP to train the YOWOv2, for example:
+## Evaluate on PBA Dataset
 
 ```Shell
-python train.py --cuda -dist -d ava_v2.2 --root path/to/dataset -v yowo_v2_nano --num_workers 4 --eval_epoch 1 --max_epoch 10 --lr_epoch 3 4 5 6 -lr 0.0001 -ldr 0.5 -bs 8 -accu 16 -K 16 --eval
-```
-
-*However, I have not multiple GPUs, so I am not sure if there are any bugs, or if the given performance can be reproduced using DDP.*
-
-##  Test YOWOv2
-* UCF101-24
-For example:
-
-```Shell
-python test.py --cuda -d ucf24 -v yowo_v2_nano --weight path/to/weight -size 224 --show
-```
-
-* AVA
-For example:
-
-```Shell
-python test.py --cuda -d ava_v2.2 -v yowo_v2_nano --weight path/to/weight -size 224 --show
-```
-
-##  Test YOWOv2 on AVA video
-For example:
-
-```Shell
-python test_video_ava.py --cuda -d ava_v2.2 -v yowo_v2_nano --weight path/to/weight --video path/to/video --show
-```
-
-Note that you can set ```path/to/video``` to other videos in your local device, not AVA videos.
-
-## Evaluate YOWOv2
-* UCF101-24
-For example:
-
-```Shell
-# Frame mAP
+# Frame mAP evaluation
 python eval.py \
         --cuda \
-        -d ucf24 \
-        -v yowo_v2_nano \
+        -d pba \
+        -v yowo_v2_tiny_improved \
         -bs 16 \
         -size 224 \
         --weight path/to/weight \
-        --cal_frame_mAP \
+        --cal_frame_mAP
 ```
+
+## Demo with Panda Videos
 
 ```Shell
-# Video mAP
-python eval.py \
-        --cuda \
-        -d ucf24 \
-        -v yowo_v2_nano \
-        -bs 16 \
-        -size 224 \
-        --weight path/to/weight \
-        --cal_video_mAP \
+# run demo on panda videos
+python demo.py --cuda -d pba -v yowo_v2_tiny_improved -size 224 --weight path/to/weight --video path/to/panda_video --show
 ```
 
-* AVA
+**Qualitative results in real panda monitoring scenarios**
+![image](./img_files/image213.png)
 
-Run the following command to calculate frame mAP@0.5 IoU:
+## Ablation Study Results
 
-```Shell
-python eval.py \
-        --cuda \
-        -d ava_v2.2 \
-        -v yowo_v2_nano \
-        -bs 16 \
-        --weight path/to/weight
-```
+| Components | PBA F-mAP | FLOPs | Params |
+|------------|-----------|-------|---------|
+| Baseline (YOWOv2-Tiny) | 67.13% | 2.90G | 10.88M |
+| + C3k2 | 68.19% | 3.35G | 13.84M |
+| + MLSA | 69.15% | 2.91G | 11.93M |
+| + SCSA | 69.38% | 2.90G | 10.88M |
+| + All improvements | **73.94%** | **3.35G** | **14.90M** |
 
-## Demo
-```Shell
-# run demo
-python demo.py --cuda -d ucf24 -v yowo_v2_nano -size 224 --weight path/to/weight --video path/to/video --show
-                      -d ava_v2.2
-```
+## Attention Mechanism Comparison
 
-**Qualitative results in real scenarios**
-![image](./img_files/vis_demo.png)
-
+| Attention Method | PBA F-mAP |
+|------------------|-----------|
+| SE | 68.37% |
+| ECA | 67.60% |
+| SA | 66.58% |
+| CA | 68.29% |
+| CBAM | 70.84% |
+| **MLSA (Ours)** | **73.94%** |
 
 ## References
-If you are using our code, please consider citing our paper.
+If you are using our code or the PBA dataset, please consider citing our paper.
 
 ```
-@article{yang2023yowov2,
-  title={YOWOv2: A Stronger yet Efficient Multi-level Detection Framework for Real-time Spatio-temporal Action Detection},
-  author={Yang, Jianhua and Kun, Dai},
-  journal={arXiv preprint arXiv:2302.06848},
-  year={2023}
+@article{jiang2025panda,
+  title={Giant Panda Behavior Recognition in Captivity Based on YOWOv2-Tiny},
+  author={Jiang, Zhengjin},
+  journal={Journal Title},
+  volume={XX},
+  number={A},
+  pages={1--15},
+  year={2025},
+  publisher={SAGE Publications}
 }
 ```
+
+## Acknowledgments
+We thank the Chengdu Research Base of Giant Panda Breeding for providing the surveillance video data used in this research.

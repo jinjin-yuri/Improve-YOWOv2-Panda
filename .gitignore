@@ -5,3 +5,4 @@
 __pycache__
 det_results
 .vscodemodels/backbone/backbone_3d/cnn_3d/sa_resnet101.pth.tar
+models/backbone/backbone_3d/cnn_3d/sa_resnet101.pth.tar
